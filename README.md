@@ -1,0 +1,77 @@
+# **TRAINING A YOLOv8 MODEL TO DETECT BARNACLES**
+
+By Evan Zhang
+
+(All this information and more appears in the `YOLO-on-Barnacle-Detection/YOLO_on_Barnacle_Detection.ipynb` notebook)
+
+## **Folder Information**
+
+*   `Barnacles_Images/` hold the given images from the DALI Lab assignment
+*   `data/` holds the training and validation images and labels that I annotated by hand using CVAT.  The labels have floating point values for where my annotated rectangles of Barnacles are at in the relative image
+*   `runs/` a bunch of valuable information regarding my main 3 iterations of training the model to show my process
+
+### **Initial Ideas**
+
+At first I wanted to learn a bit more about OpenCV and try to see if I could use those tools to somehow identify barnacles.  I watched a few tutorials and read up on the notation but it seemed that OpenCV did not have the best toolset to identify barnacles (stuff like Haar Cascades didn't seem super promising)
+
+But the concept itself seemed very possible as barnacles (especially the acorn barnacles that seem to be in the given images) have a distinct appearance.  They have a shell indicated by a usually dark circle with a slit-like apperature in the middle.  Thus I thought that perhaps applying a state of the art detection model like
+YOLO (You Only Look Once) **https://github.com/ultralytics/ultralytics** could work.
+
+I referenced this github repo to learn about how to train YOLO for my own purpose: **https://github.com/roboflow/notebooks/blob/main/notebooks/train-yolov8-object-detection-on-custom-dataset.ipynb**
+
+Specifically, I used the YOLOv8n detection model, which takes in 640x640 pixel images and is the smallest and least powerful version.  A detection model was bets for my task as I could count the number of detections in order to tally the amount of barnacles in an image.
+
+## **Process**
+
+I searched a lot of databases like kaggle and roboflow for existing datasets on barnacles but none really existed or were not annoted correctly for my task.  Thus, I used **https://app.cvat.ai/tasks** to annotate my own images.  I tried to follow a consistent annotation method of labeling as much of each barnacle as possible while using a variety of different barnacle images.
+
+YOLOv8 uses a very particular input structure for its images and labels.  The way I formatted it was as follows:
+
+```
+data/
+    images/
+        train/    # training images
+        val/      # images for validation
+    labels/
+        train/    # training labels (float values for where my annotations are)
+        val/      # validation labels
+
+data.yaml  # yaml file that directs where to find the training and validation
+```
+
+**More detailed information about the runs can be found in the `runs/` folder of this repo*
+
+### **Iteration 1**
+
+In my first iteration, I only used ~ 20 images in my training set which was a very small sample size.  Likewise, my image choice wasn't ideal which resulted in pretty terrible training results.  The loss of the model was decreasing over time but the confidence/precision in the `results.png` graph were pretty terrible sitting at **~ 0.0150** which meant the model was very unsure about what a barnacle was.
+
+<img src = "runs/Iteration1/results.png" alt = "Iteration1 Results" width="1000">
+
+### **Iteration 2**
+
+Obviously I needed a bit more data but I realized the main issue was that the images I was using to train were almost all of large clusters of barnacles.  Thus, I added a bunch of zoomed-in pictures of singular barnacles to aid the model's detection.
+
+Also, since there aren't too many barnacle pictures on the internet, I augmented the data by also rotating it 90, 180, and 270 degrees, essentially quadrupling the amount of data to be trained on.  This ultimately resulted in ~ 80 images for this second training iteration.
+
+The results were far far better with the model's confidence/precision reaching values of 0.6 - 0.7 (1.0 would be 100% confidence).  Looking at the `val_batch0_labels.jpg` and the `val_batch0_pred.jpg` the predicted labels in the latter were pretty good but some barnacles remained undetected so I knew I could do better.
+
+<img src = "runs/Iteration2/results.png" alt = "Iteration2 Results" width="1000">
+
+### **Iteration 3 (Final)**
+
+The main difference in this iteration was just manually adding and annotating hundreds of barnacle images to the dataset.  Once again, I rotated all the images to augment the data which now totalted the dataset to **250 images**.  This can be seen in the `/data` folder in the repository.  My logic was just that more data would lead to better detection which was proven true.
+
+The results of this final iteration honestly surpassed my expectations as the confidence reached slightly above 0.8 and the `val_batch0_pred.jpg` prediction labels were also nearly perfect.
+
+<img src = "runs/Iteration3_Final/results.png" alt = "Iteration3 Results" width="1000">
+
+My Annotations:
+
+<img src = "runs/Iteration3_Final/val_batch0_labels.jpg" alt = "Iteration3 Labels" width="500">
+
+Predicted:
+
+<img src = "runs/Iteration3_Final/val_batch0_pred.jpg" alt = "Iteration3 Pred" width="500">
+
+
+### Conclusions can be found at the Bottom of the Python Notebook
