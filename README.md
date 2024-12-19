@@ -4,11 +4,37 @@ By Evan Zhang
 
 (All this information and more appears in the `YOLO-on-Barnacle-Detection/YOLO_on_Barnacle_Detection.ipynb` notebook)
 
+I did my work in Google Colab since I don't have my own nvidia GPU, thus many of the path names in the notebook are relative to that and thus some things need to be put into the `/content` folder there
+
+### **What My Google Colab and Google Drive Structure Looked Like:**
+
+If you want to replicate applying the model on the given barnacle images, put in the side files tab:
+
+```
+content/
+    Barnacles_Images/   # folder with the given images (use the folder with the same name in this repo)
+    best.pt             # the final model loaded (use the .pt file with the same name in this repo)
+```
+
+The path to my google drive folder looked like this (Root directory is called "YOLOv8"): `/content/gdrive/MyDrive/Coding/YOLOv8`
+
+Inside of Google Drive, my folder (called "YOLOv8") had this structure:
+
+```
+data/
+runs/
+data.yaml
+YOLO-on-Barnacle-Detection.ipnyb
+```
+
+You can just download the files in this repo and put them in that configuration.  The `data.yaml` file tells YOLO where to look to find the dataset with the training and validation images.  **YOU WILL LIKELY NEED TO CHANGE THE ROOT DIR PATH IN THIS FILE TO MATCH THE NAMES OF THE FOLDERS IN YOUR GOOGLE DRIVE**
+
 ## **Folder Information**
 
 *   `Barnacles_Images/` hold the given images from the DALI Lab assignment
 *   `data/` holds the training and validation images and labels that I annotated by hand using CVAT.  The labels have floating point values for where my annotated rectangles of Barnacles are at in the relative image
-*   `runs/` a bunch of valuable information regarding my main 3 iterations of training the model to show my process
+*   `runs/` a bunch of valuable information regarding my main 3 iterations of training the model to show my process.  If you want to look at or load a model from any of the runs, they are found in the `weights/` folder in each iteration
+*   `best.pt` for convenience sake, I put the best performing model from the 3rd iteration at the root directory.  This is what I loaded in my notebook.
 
 ### **Initial Ideas**
 

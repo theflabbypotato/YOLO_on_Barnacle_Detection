@@ -1,10 +1,7 @@
-
 path: '/content/gdrive/My Drive/Coding/YOLOv8/data' # dataset root dir
 train: images/train
 val: images/val
-# test: test/images
 
 # Classes
 names:
   0: barnacle
-
