@@ -12,11 +12,11 @@ This is a quick visual of the results of the model which seemed to perform prett
 
 The `best.pt` model being used on `unseen_img1.png`:
 
-<img src = "results/Test1.png" alt = "Test1" width="500">
+<img src = "results/Test_1.png" alt = "Test1" width="500">
 
 The `best.pt` model being used on a 640x640 pixel cropped portion of `unseen_img2.png`:
 
-<img src = "results/Test2.png" alt = "Test2" width="500">
+<img src = "results/Test_2.png" alt = "Test2" width="500">
 
 ### **What My Google Colab and Google Drive Structure Looked Like:**
 
