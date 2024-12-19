@@ -6,6 +6,18 @@ By Evan Zhang
 
 I did my work in Google Colab since I don't have my own nvidia GPU, thus many of the path names in the notebook are relative to that and thus some things need to be put into the `/content` folder there
 
+### **Best Model on the Given Unseen Images**
+
+This is a quick visual of the results of the model which seemed to perform pretty well
+
+The `best.pt` model being used on `unseen_img1.png`:
+
+<img src = "results/Test1.png" alt = "Test1" width="1000">
+
+The `best.pt` model being used on a 640x640 pixel cropped portion of `unseen_img2.png`:
+
+<img src = "results/Test2.png" alt = "Test2" width="1000">
+
 ### **What My Google Colab and Google Drive Structure Looked Like:**
 
 If you want to replicate applying the model on the given barnacle images, put in the side files tab:
@@ -35,6 +47,7 @@ You can just download the files in this repo and put them in that configuration.
 *   `data/` holds the training and validation images and labels that I annotated by hand using CVAT.  The labels have floating point values for where my annotated rectangles of Barnacles are at in the relative image
 *   `runs/` a bunch of valuable information regarding my main 3 iterations of training the model to show my process.  If you want to look at or load a model from any of the runs, they are found in the `weights/` folder in each iteration
 *   `best.pt` for convenience sake, I put the best performing model from the 3rd iteration at the root directory.  This is what I loaded in my notebook.
+*   `results/` these images show up at the bottom of the notebook but I have them here so they can be displayed at the top of the README
 
 ### **Initial Ideas**
 
