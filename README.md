@@ -10,11 +10,11 @@ I did my work in Google Colab since I don't have my own nvidia GPU, thus many of
 
 This is a quick visual of the results of the model which seemed to perform pretty well
 
-The `best.pt` model being used on `unseen_img1.png` (In this image, were **135** barnacles detected by this model):
+The `best.pt` model being used on `unseen_img2.png` (In this image, were **135** barnacles detected by this model):
 
 <img src = "results/Test_1.png" alt = "Test1" width="500">
 
-The `best.pt` model being used on a 640x640 pixel cropped portion of `unseen_img2.png`:
+The `best.pt` model being used on a 640x640 pixel cropped portion of `unseen_img1.png`:
 
 *This image shows proof-of-concept that larger images can STILL be counted by this YOLO model by cropping the image into smaller sections and summing them up*
 
